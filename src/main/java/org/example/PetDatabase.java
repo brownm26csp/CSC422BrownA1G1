@@ -2,7 +2,7 @@ package org.example;
 
 /*
 Melissa Brown
-CSC 222
+CSC 422
 This program uses the Pet class to create an array of Pets and display the information for the user to see in the
 database.
  */
@@ -34,7 +34,7 @@ public class PetDatabase {
         System.out.println("Your choice: " + choice);
 
         //7 means the user wishes to quit the database
-        while(choice !=5){
+        while(choice !=7){
             switch(choice){
                 //1 = user wishes to see all pets in the database
                 case 1:
@@ -47,14 +47,31 @@ public class PetDatabase {
                     System.out.println("hello");
                     break;
 
-                //5 = user wishes to search pets by a certain name and see a list of only the pets with that name
+                //3 = user wishes to search pets by a certain name and see a list of only the pets with that name
                 case 3:
                     searchPetsByName();
                     break;
 
-                //6 = user wishes to search pets by a certain age and see a list of only the pets with that name
+                //4 = user wishes to search pets by a certain age and see a list of only the pets with that name
                 case 4:
                     searchPetsByAge();
+                    break;
+
+                //5 user wishes to update a pet name and/or age in the database
+                case 5:
+                    updatePet();
+                    break;
+
+                //6 = user wishes to remove a pet from the database
+                case 6:
+                    showAllPets();
+                    System.out.println("Enter the pet ID to remove: ");
+                    int remove = s.nextInt();
+                    System.out.println(pets[remove].getName() + " " + pets[remove].getAge() + " is removed.");
+                    for(int i = remove; i < petCount; i++){
+                        pets[i] = pets[i+1];
+                    }
+                    petCount--;
                     break;
 
 
@@ -71,7 +88,7 @@ public class PetDatabase {
     public static int getUserChoice(){
         System.out.println("\nWhat would you like to do?");
         System.out.println("1) View all pets \n2) Add more pets \n3) Search pets by name \n4) Search pets by age" +
-                " \n5) Exit program");
+                "\n5) Update pet \n6)Remove pet \n7) Exit program");
         int result = s.nextInt();
         return result;
     }
@@ -164,6 +181,25 @@ public class PetDatabase {
             printTableRow(j,(ageMatches.get(j)).getName(),(ageMatches.get(j)).getAge());
         }
         printTableFooter(ageMatches.size());
+    }
+
+    /*Allows user to update a pet's information. The table displays, and the user puts in the ID they wish to change.
+    This ID is put into the pets[] array, and the information that the user types in is put into that spot in the
+    array. The old name and age are saved in a temporary String to show the user at the end what the old name was changed from,
+    and also displays the new name.
+     */
+    public static void updatePet(){
+        showAllPets();
+        System.out.println("Enter the petID you want to update");
+        int idUpdate = s.nextInt();
+        System.out.println("Enter new name and new age: ");
+        String newInfo = st.nextLine();
+        String[] nextPetInfo = newInfo.split(" ");
+        String tempName = pets[idUpdate].getName();
+        int tempAge = pets[idUpdate].getAge();
+        pets[idUpdate].setName(nextPetInfo[0]);
+        pets[idUpdate].setAge(Integer.parseInt(nextPetInfo[1]));
+        System.out.println(tempName + " " + tempAge + " changed to " + pets[idUpdate].getName() + " " + pets[idUpdate].getAge());
     }
 
 

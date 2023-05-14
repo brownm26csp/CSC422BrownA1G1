@@ -2,8 +2,8 @@ package org.example;
 
 /*
 Melissa Brown
-10/15/2022
-CSC 222
+5/14/2023
+CSC 422
 This program creates a pet object containing the pet's name and age.
  */
 
