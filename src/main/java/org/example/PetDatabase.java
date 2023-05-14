@@ -34,7 +34,7 @@ public class PetDatabase {
         System.out.println("Your choice: " + choice);
 
         //7 means the user wishes to quit the database
-        while(choice !=3){
+        while(choice !=5){
             switch(choice){
                 //1 = user wishes to see all pets in the database
                 case 1:
@@ -45,6 +45,16 @@ public class PetDatabase {
                 case 2:
                     addPets();
                     System.out.println("hello");
+                    break;
+
+                //5 = user wishes to search pets by a certain name and see a list of only the pets with that name
+                case 3:
+                    searchPetsByName();
+                    break;
+
+                //6 = user wishes to search pets by a certain age and see a list of only the pets with that name
+                case 4:
+                    searchPetsByAge();
                     break;
 
 
@@ -60,7 +70,8 @@ public class PetDatabase {
     //Displays the options for what the user can do with the Pet database
     public static int getUserChoice(){
         System.out.println("\nWhat would you like to do?");
-        System.out.println("1) View all pets \n2) Add more pets \n3) Exit program");
+        System.out.println("1) View all pets \n2) Add more pets \n3) Search pets by name \n4) Search pets by age" +
+                " \n5) Exit program");
         int result = s.nextInt();
         return result;
     }
@@ -104,9 +115,55 @@ public class PetDatabase {
             Pet petAdd = new Pet(nextPetInfo[0], Integer.parseInt(nextPetInfo[1]));
             pets[petCount] = petAdd;
             petCount++;
-            System.out.println("add pet (name, age):");
+            System.out.println("add pet (name, age) type 'done' to exit:");
             nextPet = st.nextLine();
         }
+    }
+
+    /*
+    The user inputs a pet name to search. An ArrayList is created to temporarily store the matches. The pets[] array is
+    searched index by index. If a name in the pets[] array matches the search name (regardless of case), then it is
+    added to the ArrayList of pet objects. At the end, a table is printed with a header, the number of rows in the
+    ArrayList of pets, and a footer with the tally of pets matching the specified name.
+     */
+    public static void searchPetsByName(){
+        System.out.println("Enter a name to search: ");
+        String name = st.nextLine();
+        ArrayList<Pet> nameMatches = new ArrayList<Pet>();
+        for(int i = 0; i < petCount; i++){
+            if(name.equalsIgnoreCase(pets[i].getName())){
+                nameMatches.add(pets[i]);
+            }
+        }
+        printTableHeader();
+        for(int j = 0; j < nameMatches.size(); j++){
+            printTableRow(j,(nameMatches.get(j)).getName(),(nameMatches.get(j)).getAge());
+
+        }
+        printTableFooter(nameMatches.size());
+    }
+
+
+    /*
+        The user inputs a pet age to search. An ArrayList is created to temporarily store the matches. The pets[] array is
+        searched index by index. If an age in the pets[] array matches the search age, then it is
+        added to the ArrayList of pet objects. At the end, a table is printed with a header, the number of rows in the
+        ArrayList of pets, and a footer with the tally of pets matching the specified age.
+         */
+    public static void searchPetsByAge(){
+        System.out.println("Enter an age to search: ");
+        int age = s.nextInt();
+        ArrayList<Pet> ageMatches = new ArrayList<>();
+        for(int i = 0; i < petCount; i++){
+            if(age == pets[i].getAge()){
+                ageMatches.add(pets[i]);
+            }
+        }
+        printTableHeader();
+        for(int j = 0; j < ageMatches.size(); j++){
+            printTableRow(j,(ageMatches.get(j)).getName(),(ageMatches.get(j)).getAge());
+        }
+        printTableFooter(ageMatches.size());
     }
 
 
