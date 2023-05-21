@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a55d4023-2e6e-410a-a00a-343c9cb5896f" name="Changes" comment="Release 2: Searching pets by name/age">
+    <list default="true" id="a55d4023-2e6e-410a-a00a-343c9cb5896f" name="Changes" comment="Release 3: Removing/updating pet">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/FullDatabaseException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/InvalidAgeException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/InvalidArgumentException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/InvalidIdException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Pet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Pet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/PetDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/PetDatabase.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +44,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -74,7 +80,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684093496462</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Release 3: Removing/updating pet">
+      <created>1684093967413</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1684093967413</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -103,6 +116,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First portion of the project" />
     <MESSAGE value="Release 2: Searching pets by name/age" />
-    <option name="LAST_COMMIT_MESSAGE" value="Release 2: Searching pets by name/age" />
+    <MESSAGE value="Release 3: Removing/updating pet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Release 3: Removing/updating pet" />
   </component>
 </project>
