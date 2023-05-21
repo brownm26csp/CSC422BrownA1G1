@@ -8,26 +8,24 @@ This program uses the Pet class to create an array of Pets and display the infor
 database.
  */
 
+
 import java.util.Scanner;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.io.*;
 
 public class PetDatabase {
 
     //maximum number of pets which can be in the database
-    static final int CAPACITY = 5;//added 5.21
+    static final int CAPACITY = 5;
 
     //array to hold all of the pet objects created
-    static Pet[] pets = new Pet[CAPACITY];//added 5.21
+    static Pet[] pets = new Pet[CAPACITY];
 
     //total number of pets in the database
     public static int petCount = 0;
 
     //name of the file which will be read from and written to
-    static String filename = "petData.txt";//added 5.21
-
-    /*array with maximum 100 pets possible
-    public static Pet[] pets = new Pet[100]; commented out 5.21*/
+    public static String filename = "petData.txt";
 
     //Scanner which takes in integers
     public static Scanner s = new Scanner(System.in);
@@ -36,9 +34,11 @@ public class PetDatabase {
     public static Scanner st = new Scanner(System.in);
 
 
+
     public static void main(String[] args){
 
-        //Lines 37-41 reads from the pets.txt file and puts the information into the Pet[] array
+
+        //Lines 42-52 reads from the pets.txt file and puts the information into the Pet[] array
         try {
             loadDatabase();
         }
@@ -57,7 +57,7 @@ public class PetDatabase {
         int choice = getUserChoice();
         System.out.println("Your choice: " + choice);
 
-        //7 means the user wishes to quit the database
+        //4 means the user wishes to quit the database
         while(choice !=4){
             boolean tryAgain = false;
             switch(choice){
@@ -128,10 +128,11 @@ public class PetDatabase {
             System.out.println("Your choice: " + choice);
         }
 
+        //saves the database to a text file
         saveDatabase();
 
 
-        //user has chosen 7, which quits the program
+        //user has chosen 4, which quits the program
         System.out.println("Good-bye!");
     }
 
@@ -183,12 +184,12 @@ public class PetDatabase {
             String[] nextPetInfo = parseArgument(nextPet);
 
             //checks the age if it is correctly parsed, throws InvalidAgeException if too old or young
-            if (Integer.parseInt(nextPetInfo[1]) < 1 || Integer.parseInt(nextPetInfo[1]) > 50) {
+            if (Integer.parseInt(nextPetInfo[1]) < 1 || Integer.parseInt(nextPetInfo[1]) > 20) {
                 throw new InvalidAgeException(Integer.parseInt(nextPetInfo[1]));
             } else {
                 //throws FullDatabaseException if the database is full, and invalid age exception
                 addPet(nextPetInfo[0],Integer.parseInt(nextPetInfo[1]));
-                System.out.println("add pet (name, age):");
+                System.out.println("add pet (name, age) OR type 'done' if finished:");
                 nextPet = st.nextLine();
             }
         }
@@ -200,7 +201,7 @@ public class PetDatabase {
     searched index by index. If a name in the pets[] array matches the search name (regardless of case), then it is
     added to the ArrayList of pet objects. At the end, a table is printed with a header, the number of rows in the
     ArrayList of pets, and a footer with the tally of pets matching the specified name.
-     */
+
     public static void searchPetsByName(){
         System.out.println("Enter a name to search: ");
         String name = st.nextLine();
@@ -217,6 +218,7 @@ public class PetDatabase {
         }
         printTableFooter(nameMatches.size());
     }
+    */
 
 
     /*
@@ -224,7 +226,7 @@ public class PetDatabase {
         searched index by index. If an age in the pets[] array matches the search age, then it is
         added to the ArrayList of pet objects. At the end, a table is printed with a header, the number of rows in the
         ArrayList of pets, and a footer with the tally of pets matching the specified age.
-         */
+
     public static void searchPetsByAge(){
         System.out.println("Enter an age to search: ");
         int age = s.nextInt();
@@ -240,12 +242,13 @@ public class PetDatabase {
         }
         printTableFooter(ageMatches.size());
     }
+    */
 
     /*Allows user to update a pet's information. The table displays, and the user puts in the ID they wish to change.
     This ID is put into the pets[] array, and the information that the user types in is put into that spot in the
     array. The old name and age are saved in a temporary String to show the user at the end what the old name was changed from,
     and also displays the new name.
-     */
+
     public static void updatePet(){
         showAllPets();
         System.out.println("Enter the petID you want to update");
@@ -259,11 +262,12 @@ public class PetDatabase {
         pets[idUpdate].setAge(Integer.parseInt(nextPetInfo[1]));
         System.out.println(tempName + " " + tempAge + " changed to " + pets[idUpdate].getName() + " " + pets[idUpdate].getAge());
     }
+    */
 
     public static void addPet(String name, int age) throws FullDatabaseException,InvalidAgeException {
         //Pet constructor throws InvalidAgeException
         Pet petAdd = new Pet(name, age);
-        if(petCount >= 100){
+        if(petCount >= 5){
             throw new FullDatabaseException();
         }
         else {
@@ -291,7 +295,7 @@ public class PetDatabase {
             for(int i = remove; i < petCount; i++){
                 //if the pet is the last pet and the database is full, then the shuffling doesn't occur since
                 //that would cause an index out of bounds error
-                if(i!=99) {
+                if(i!=4) {
                     pets[i] = pets[i + 1];
                 }
             }
@@ -306,7 +310,7 @@ public class PetDatabase {
     data had to be compromised, since they were too ambitious with their pet database goals.
      */
     public static void loadDatabase() throws InvalidArgumentException,InvalidAgeException,FullDatabaseException{
-        File petData = new File("petData.txt");
+        File petData = new File(filename);
         try (Scanner input = new Scanner(petData)){
             while(input.hasNext()){
                 String nextPet = input.nextLine();
@@ -324,7 +328,7 @@ public class PetDatabase {
     public static void saveDatabase(){
 
         //try with resources to create a PrintWriter object and have it be automatically closed
-        try (PrintWriter output = new PrintWriter(new File("petData.txt"))){
+        try (PrintWriter output = new PrintWriter(new File(filename))){
 
             //loops through each index in the array and writes it line by line onto the file in the
             //correct format
@@ -337,17 +341,30 @@ public class PetDatabase {
     }
 
     /*
-    Makes sure the argument is parsed correctly. The String[] array should have only two values.
+    Makes sure the argument is parsed correctly. The String[] array should have only two values, and the second value
+    must be able to be parsed to an integer value
      */
     public static String[] parseArgument(String line) throws InvalidArgumentException {
+        int tryAge;
         String[] result = line.split(" ");
         if (result.length != 2) {
             throw new InvalidArgumentException(line);
         }
-        else
+        else {
+            try {
+                tryAge = Integer.parseInt(result[1]);
+            }
+            catch(NumberFormatException e) {
+                throw new InvalidArgumentException(line);
+            }
+
+            }
+
             return result;
-    }
+        }
+        }
 
 
 
-}
+
+
